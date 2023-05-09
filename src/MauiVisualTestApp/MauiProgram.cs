@@ -11,7 +11,7 @@ public static class MauiProgram
 		{
 			Assemblies =
 			{
-				typeof(MauiProgram).Assembly
+				typeof(MauiProgram).Assembly,
 			}
 		})
 		.UseVisualRunner()

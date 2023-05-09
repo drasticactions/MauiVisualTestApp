@@ -5,6 +5,7 @@ using Drastic.MauiRemoteImage.Messages;
 using Drastic.MauiRemoteImage.Models;
 using Drastic.Tempest;
 using MauiVisualTestApp.Shared;
+using Drastic.ImageHash;
 
 namespace MauiVisualTestAppSandbox;
 
@@ -28,7 +29,7 @@ public partial class MainPage : ContentPage
 		name = "Windows";
 		#endif
 		this.client = new AppClient(name);
-		this.client.ConnectAsync(new Target("192.168.50.123", 8888));
+		this.client.ConnectAsync(new Target("192.168.50.83", 8888));
 	}
 
 	private void SetupPages()
@@ -70,7 +71,7 @@ public partial class MainPage : ContentPage
 		var window = new Window(new StartingPage());
 		App.Current.OpenWindow(window);
 		await Task.Delay(1000);
-		
+		var algorithm = new Drastic.ImageHash.HashAlgorithms.DifferenceHash();
 		string ns = "MauiVisualTestApp.Shared";
 		foreach (Type type in Assembly.GetAssembly(typeof(ButtonPage))!.GetTypes())
 		{
@@ -97,9 +98,10 @@ public partial class MainPage : ContentPage
 						throw new TimeoutException("Event did not fire within the specified timeout.");
 					}
 
-					await Task.Delay(1000);
+					await Task.Delay(5000);
 					var image = await VisualDiagnostics.CaptureAsPngAsync(window);
-					var screenshot = new Drastic.MauiRemoteImage.Models.Screenshot() { Image = image, Name = type.Name };
+					var hash = algorithm.Hash(image);
+                    var screenshot = new Drastic.MauiRemoteImage.Models.Screenshot() { Image = image, Name = $"{type.Name}-{hash}" };
 					this.client.SendScreenshot(screenshot);
 					//this.client.SendMessageAsync(new OnScreenshotResponseMessage() { ScreenShots = new List<Drastic.MauiRemoteImage.Models.Screenshot>() });
 				}

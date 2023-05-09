@@ -49,8 +49,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Drastic.ImageHash" Version="1.0.0" />
+		<PackageReference Include="FluentAssertions" Version="6.11.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Shiny.Xunit.Runners.Maui" Version="1.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\MauiVisualTestApp.Shared\MauiVisualTestApp.Shared.csproj" />
 	</ItemGroup>
 
 </Project>

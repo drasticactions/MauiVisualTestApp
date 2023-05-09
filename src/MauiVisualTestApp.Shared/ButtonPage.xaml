@@ -4,6 +4,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiVisualTestApp.Shared.ButtonPage">
     <ContentPage.Content>
-        <Button VerticalOptions="Center" HorizontalOptions="Center" Text="Hoge"/>
+        <Button VerticalOptions="Center" HorizontalOptions="Center" Text="Test"/>
     </ContentPage.Content>
 </ContentPage>
